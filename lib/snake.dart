@@ -10,6 +10,12 @@ class Snake extends StatefulWidget {
 class _SnakeState extends State<Snake> {
   List<int> Snake=[65,85,105,125,145,165];
   int bait=256;
+  String duration='Up';
+  
+  void startGame()
+  {
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class _SnakeState extends State<Snake> {
               SizedBox(
                 height: 400.0,
                  child:GridView.builder(
-                  itemCount:300,
+                  itemCount:400,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 20,crossAxisSpacing:1,mainAxisSpacing: 1),
                itemBuilder:(context,index){
                 if(index==bait)
@@ -41,20 +47,44 @@ class _SnakeState extends State<Snake> {
   }
   )
               ),
-          FloatingActionButton(onPressed:(){}, child:Icon(Icons.arrow_upward)),
+          FloatingActionButton(onPressed:(){
+            setState(() {
+              duration='Up';
+              Snake.add(Snake.last-20);
+              Snake.remove(Snake.first);
+            });
+          }, child:Icon(Icons.arrow_upward)),
           Row(
 
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               FloatingActionButton(
-                onPressed: (){},child: Icon(Icons.arrow_back),),
-               FloatingActionButton(onPressed: (){},child: Icon(Icons.arrow_forward),)
+                onPressed: (){
+                  setState(() {
+                    duration='Left';
+                    Snake.add(Snake.last-1);
+                    Snake.remove(Snake.first);
+                  });
+                },child: Icon(Icons.arrow_back),),
+               FloatingActionButton(onPressed: (){
+                setState(() {
+                  duration='Right';
+                  Snake.add(Snake.last+1);
+                  Snake.remove(Snake.first);
+                });
+               },child: Icon(Icons.arrow_forward),)
             ],
           ),
           Row(
                         mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                FloatingActionButton(onPressed: (){},child: Icon(Icons.arrow_downward),),
+                FloatingActionButton(onPressed: (){
+                  setState(() {
+                    duration='Down';
+                    Snake.add(Snake.last+20);
+                    Snake.remove(Snake.first);
+                  });
+                },child: Icon(Icons.arrow_downward),),
             ],
           )
             ]
