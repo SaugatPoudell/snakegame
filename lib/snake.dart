@@ -99,13 +99,11 @@ void initState() {
                 }
                 if(Snake.last<0)
                 {
-                  Snake.forEach((snake)
-                  {
-                    setState(() {
-                     
-                    });
-                  }
-                  );
+                  Snake=Snake.map((value)=>value+380).toList();
+                }
+                else if(Snake.first>=399)
+                {
+                  Snake=Snake.map((value)=>value-400).toList();
                 }
                 else
               return Container(
