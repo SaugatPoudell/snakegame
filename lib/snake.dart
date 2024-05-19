@@ -1,4 +1,7 @@
+
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class Snake extends StatefulWidget {
   const Snake({super.key});
@@ -10,13 +13,62 @@ class Snake extends StatefulWidget {
 class _SnakeState extends State<Snake> {
   List<int> Snake=[65,85,105,125,145,165];
   int bait=256;
-  String duration='Up';
+  String duration='None';
+  Timer? gameTimer;
   
   void startGame()
   {
-    
+      if(duration=='Up')
+      {
+        setState(() {
+            Snake.add(Snake.last-20);
+              Snake.remove(Snake.first);
+              
+        });
+      }
+      else if(duration=='Down')
+        {
+          setState((){
+                    Snake.add(Snake.last+20);
+                    Snake.remove(Snake.first);
+        });
+          }
+        else if(duration=='Left')
+        {
+          setState(() {
+            Snake.add(Snake.last-1);
+              Snake.remove(Snake.first);
+          });
+        }
+        else if(duration=='Right')
+        {
+          setState(() {
+             Snake.add(Snake.last+1);
+                  Snake.remove(Snake.first);
+          });
+           
+        }
+        else
+        {
+          
+        };
   }
 
+
+    void startGameTimer() {
+    gameTimer = Timer.periodic(Duration(milliseconds:200), (timer) {
+      startGame();
+    });
+  }
+  
+  
+
+@override
+void initState() { 
+  super.initState();
+  startGameTimer();
+  
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +92,21 @@ class _SnakeState extends State<Snake> {
                     color: Colors.white,
                   );
                 }
+                if(Snake.last==bait)
+                {
+                  Snake.add(Snake.last);
+                  bait=Random().nextInt(399);
+                }
+                if(Snake.last<0)
+                {
+                  Snake.forEach((snake)
+                  {
+                    setState(() {
+                     
+                    });
+                  }
+                  );
+                }
                 else
               return Container(
                 color: Colors.grey[900],
@@ -49,9 +116,8 @@ class _SnakeState extends State<Snake> {
               ),
           FloatingActionButton(onPressed:(){
             setState(() {
+              startGame();
               duration='Up';
-              Snake.add(Snake.last-20);
-              Snake.remove(Snake.first);
             });
           }, child:Icon(Icons.arrow_upward)),
           Row(
@@ -62,15 +128,11 @@ class _SnakeState extends State<Snake> {
                 onPressed: (){
                   setState(() {
                     duration='Left';
-                    Snake.add(Snake.last-1);
-                    Snake.remove(Snake.first);
                   });
                 },child: Icon(Icons.arrow_back),),
                FloatingActionButton(onPressed: (){
                 setState(() {
                   duration='Right';
-                  Snake.add(Snake.last+1);
-                  Snake.remove(Snake.first);
                 });
                },child: Icon(Icons.arrow_forward),)
             ],
@@ -79,10 +141,9 @@ class _SnakeState extends State<Snake> {
                         mainAxisAlignment: MainAxisAlignment.center,
             children: [
                 FloatingActionButton(onPressed: (){
+                  startGame();
                   setState(() {
                     duration='Down';
-                    Snake.add(Snake.last+20);
-                    Snake.remove(Snake.first);
                   });
                 },child: Icon(Icons.arrow_downward),),
             ],
