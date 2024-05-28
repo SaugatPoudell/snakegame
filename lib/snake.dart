@@ -75,7 +75,7 @@ void initState() {
           body: Column(
             children:[
               SizedBox(
-                height: 400.0,
+                height: 500.0,
                  child:GridView.builder(
                   itemCount:400,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 20,crossAxisSpacing:1,mainAxisSpacing: 1),
