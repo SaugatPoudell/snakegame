@@ -75,10 +75,11 @@ void initState() {
           body: Column(
             children:[
               SizedBox(
-                height: 500.0,
+                height: 400.0,
+                width:400,
                  child:GridView.builder(
                   itemCount:400,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 20,crossAxisSpacing:1,mainAxisSpacing: 1),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 20,crossAxisSpacing:0,mainAxisSpacing:0),
                itemBuilder:(context,index){
                 if(index==bait)
                 {
@@ -89,7 +90,7 @@ void initState() {
                 if(Snake.contains(index))
                 {
                   return Container(
-                    color: Colors.white,
+                    color: Colors.white
                   );
                 }
                 if(Snake.last==bait)
